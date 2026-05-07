@@ -1,23 +1,24 @@
 {
-  "name": "spotify-stats-bot",
+  "name": "discord-freegames-bot",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "ts-node src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "lint": "eslint src/**/*.ts",
+    "format": "prettier --write src/**/*.ts",
+    "test": "vitest"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/danidrl05/spotify-stats-bot.git"
+    "url": "git+https://github.com/danidrl05/discord-freegames-bot.git"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
   "bugs": {
-    "url": "https://github.com/danidrl05/spotify-stats-bot/issues"
+    "url": "https://github.com/danidrl05/discord-freegames-bot/issues"
   },
-  "homepage": "https://github.com/danidrl05/spotify-stats-bot#readme",
+  "homepage": "https://github.com/danidrl05/discord-freegames-bot#readme",
   "devDependencies": {
     "@types/better-sqlite3": "^7.6.13",
     "@types/node": "^25.6.0",

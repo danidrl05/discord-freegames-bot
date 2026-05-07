@@ -2,7 +2,7 @@
   "name": "discord-freegames-bot",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "dev": "ts-node src/index.ts",
     "build": "tsc",
@@ -19,6 +19,9 @@
     "url": "https://github.com/danidrl05/discord-freegames-bot/issues"
   },
   "homepage": "https://github.com/danidrl05/discord-freegames-bot#readme",
+  "engines": {
+    "node": ">=22"
+  },
   "devDependencies": {
     "@types/better-sqlite3": "^7.6.13",
     "@types/node": "^25.6.0",

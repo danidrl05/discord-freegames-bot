@@ -1,7 +1,7 @@
 import { Client, GatewayIntentBits } from 'discord.js';
 import dotenv from 'dotenv';
 import ready from './events/ready';
-import interactionCreate from './events/intereactionCreate';
+import interactionCreate from './events/interactionCreate';
 import './db/database';
 
 dotenv.config();

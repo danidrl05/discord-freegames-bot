@@ -9,7 +9,7 @@ export interface Game {
     end_date: string;
 }
 
-const BASE_URL = 'https://www.gamerpower.com/api/v1';
+const BASE_URL = 'https://www.gamerpower.com/api';
 
 export async function getAllGames(): Promise<Game[]> {
     const res = await fetch(`${BASE_URL}/giveaways?type=game`);

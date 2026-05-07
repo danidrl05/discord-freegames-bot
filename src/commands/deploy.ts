@@ -16,25 +16,35 @@ const commands = [
     .setName('setup')
     .setDescription('Configure the bot for this server')
     .addChannelOption((option) =>
-      option
+        option
         .setName('channel')
         .setDescription('Channel to send daily notifications')
         .setRequired(true),
     )
     .addStringOption((option) =>
-      option
+        option
         .setName('platform')
         .setDescription('Filter by platform (Steam, Epic, GOG...)')
         .setRequired(false),
     )
     .addStringOption((option) =>
-      option
+        option
         .setName('genre')
         .setDescription('Filter by genre (RPG, Shooter...)')
         .setRequired(false),
     )
     .addStringOption((option) =>
-      option
+        option
+        .setName('daily')
+        .setDescription('Enable or disable daily notifications')
+        .setRequired(false)
+        .addChoices(
+        { name: 'Enable', value: 'enable' },
+        { name: 'Disable', value: 'disable' },
+        ),
+    )
+    .addStringOption((option) =>
+        option
         .setName('language')
         .setDescription('Bot language')
         .setRequired(false)

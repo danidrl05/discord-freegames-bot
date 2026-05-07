@@ -6,9 +6,10 @@ db.exec(`
     CREATE TABLE IF NOT EXISTS servers (
         server_id TEXT PRIMARY KEY,
         channel_id TEXT,
-        platforms Text,
-        genres Text,
-        language TEXT DEFAULT 'en'
+        platforms TEXT,
+        genres TEXT,
+        language TEXT DEFAULT 'en',
+        daily_enabled INTEGER DEFAULT 1
     )
 `);
 

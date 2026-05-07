@@ -10,8 +10,7 @@ const client = new Client({
   intents: [GatewayIntentBits.Guilds],
 });
 
-client.once('ready', (c) => {
-  console.log(`✅ Bot en línia com ${c.user.tag}`);
-});
+ready(client);
+interactionCreate(client);
 
 client.login(process.env.DISCORD_TOKEN);

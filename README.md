@@ -1,1 +1,1 @@
-# spotify-stats-bot
+# discord-freegames-bot

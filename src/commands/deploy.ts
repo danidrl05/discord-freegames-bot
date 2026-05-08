@@ -23,21 +23,9 @@ const commands = [
     )
     .addStringOption((option) =>
         option
-        .setName('platform')
-        .setDescription('Filter by platform (Steam, Epic, GOG...)')
-        .setRequired(false),
-    )
-    .addStringOption((option) =>
-        option
-        .setName('genre')
-        .setDescription('Filter by genre (RPG, Shooter...)')
-        .setRequired(false),
-    )
-    .addStringOption((option) =>
-        option
         .setName('daily')
         .setDescription('Enable or disable daily notifications')
-        .setRequired(false)
+        .setRequired(true)
         .addChoices(
         { name: 'Enable', value: 'enable' },
         { name: 'Disable', value: 'disable' },
@@ -47,13 +35,33 @@ const commands = [
         option
         .setName('language')
         .setDescription('Bot language')
-        .setRequired(false)
+        .setRequired(true)
         .addChoices(
           { name: 'Català', value: 'ca' },
           { name: 'Español', value: 'es' },
           { name: 'English', value: 'en' },
         ),
+    )
+    .addStringOption((option) =>
+        option
+        .setName('platform')
+        .setDescription('Filter by platform (Steam, Epic, GOG...)')
+        .setRequired(false),
+    )
+    .addStringOption((option) =>
+        option
+        .setName('genre')
+        .setDescription('Filter by genre (RPG, Shooter...)')
+        .setRequired(false),
     ),
+
+    new SlashCommandBuilder()
+        .setName('settings')
+        .setDescription('Show the current configuration for this server'),
+    
+    new SlashCommandBuilder()
+        .setName('help')
+        .setDescription('Show all available commands and valid filter options'),
 ].map((command) => command.toJSON());
 
 const rest = new REST().setToken(process.env.DISCORD_TOKEN!);

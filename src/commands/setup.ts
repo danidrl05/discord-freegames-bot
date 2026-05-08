@@ -1,4 +1,4 @@
-import { ChatInputCommandInteraction, PermissionFlagsBits } from 'discord.js';
+import { ChatInputCommandInteraction, PermissionFlagsBits, TextChannel } from 'discord.js';
 import db from '../db/database';
 
 export async function setupCommand(interaction: ChatInputCommandInteraction): Promise<void> {
@@ -30,9 +30,18 @@ export async function setupCommand(interaction: ChatInputCommandInteraction): Pr
         channel.id,
         platform,
         genre,
-        language,
         daily === null ? null : daily === 'enable' ? 1 : 0,
+        language,
     );
+
+    if (daily === 'enable') {
+    const welcomeChannel = await interaction.client.channels.fetch(channel.id);
+    if (welcomeChannel instanceof TextChannel) {
+        await welcomeChannel.send(
+        '🔔 Daily notifications enabled! Free games will be posted here every day at **9:00 UTC**.',
+        );
+    }
+    }
 
     await interaction.reply({
         content: `✅ Configuration saved! Daily notifications → <#${channel.id}>`,

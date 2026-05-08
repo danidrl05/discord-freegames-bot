@@ -1,5 +1,4 @@
 import { ChatInputCommandInteraction, EmbedBuilder } from 'discord.js';
-import { getAllGames } from '../api/gamerpower';
 
 export async function helpCommand(interaction: ChatInputCommandInteraction): Promise<void> {
   await interaction.deferReply({ ephemeral: true });

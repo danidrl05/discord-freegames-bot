@@ -22,11 +22,11 @@ export async function getFilteredGames(platforms?: string, genres?: string): Pro
 
     return games.filter((game) => {
         const matchesPlatform = platforms
-            ? platforms.split(',').some((p) => game.platforms.toLowerCase().includes(p.toLowerCase().trim()))
+            ? platforms.split(',').some((p) => game.platforms?.toLowerCase().includes(p.toLowerCase().trim()))
             : true;
 
         const matchesGenre = genres
-            ? genres?.split(',').some((g) => game.genre.toLowerCase().includes(g.toLowerCase().trim()))
+            ? genres.split(',').some((g) => game.genre?.toLowerCase().includes(g.toLowerCase().trim()))
             : true;
 
         return matchesPlatform && matchesGenre;

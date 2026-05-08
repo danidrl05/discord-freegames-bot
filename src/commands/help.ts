@@ -1,10 +1,18 @@
 import { ChatInputCommandInteraction, EmbedBuilder } from 'discord.js';
+import db from '../db/database';
+import { t } from '../i18n';
 
 export async function helpCommand(interaction: ChatInputCommandInteraction): Promise<void> {
   await interaction.deferReply({ ephemeral: true });
 
+  const server = db
+    .prepare('SELECT language FROM servers WHERE server_id = ?')
+    .get(interaction.guildId!) as { language: string } | undefined;
+
+  const lang = t(server?.language ?? 'en');
+
   const embed = new EmbedBuilder()
-    .setTitle('📖 Help')
+    .setTitle(lang.help.title)
     .setColor(0x5865f2)
     .addFields(
       {
@@ -24,7 +32,7 @@ export async function helpCommand(interaction: ChatInputCommandInteraction): Pro
         value: 'Shows the current configuration for this server.',
       },
     )
-    .setFooter({ text: 'Use /setup platform:<name1>, <name2>, ... or genre:<name1>, <name2>, ... to filter your results' });
+    .setFooter({ text: lang.help.footer });
 
   await interaction.editReply({ embeds: [embed] });
 }

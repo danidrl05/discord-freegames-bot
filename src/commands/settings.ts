@@ -1,5 +1,6 @@
 import { ChatInputCommandInteraction, EmbedBuilder } from 'discord.js';
 import db from '../db/database';
+import { t } from '../i18n';
 
 export async function settingsCommand(interaction: ChatInputCommandInteraction): Promise<void> {
     const server = db
@@ -12,25 +13,27 @@ export async function settingsCommand(interaction: ChatInputCommandInteraction):
             daily_enabled: number;
         } | undefined;
 
+    const lang = t(server?.language ?? 'en');
+
     if (!server) {
         await interaction.reply({
-            content: 'This server has no configuration yet. Use `/setup` to get started.',
+            content: lang.settings.noConfig,
             ephemeral: true,
         });
         return;
     }
 
     const embed = new EmbedBuilder()
-        .setTitle('⚙️ Server Settings')
+        .setTitle(lang.settings.title)
         .setColor(0x5865f2)
         .addFields(
-            { name: '📢 Channel', value: `<#${server.channel_id}>`, inline: true },
-            { name: '🌐 Language', value: server.language ?? 'en', inline: true },
-            { name: '🔔 Daily', value: server.daily_enabled ? '✅ Enabled' : '❌ Disabled', inline: true },
-            { name: '🎮 Platforms', value: server.platforms ?? 'All', inline: true },
-            { name: '🎭 Genres', value: server.genres ?? 'All', inline: true },
+            { name: lang.settings.channel, value: `<#${server.channel_id}>`, inline: true },
+            { name: lang.settings.language, value: server.language ?? 'en', inline: true },
+            { name: lang.settings.daily, value: server.daily_enabled ? lang.settings.dailyEnabled : lang.settings.dailyDisabled, inline: true },
+            { name: lang.settings.platforms, value: server.platforms ?? lang.settings.all, inline: true },
+            { name: lang.settings.genres, value: server.genres ?? lang.settings.all, inline: true },
         )
-        .setFooter({ text: 'Use /setup to update your configuration.' });
+        .setFooter({ text: lang.settings.footer });
     
     await interaction.reply({ embeds: [embed], ephemeral: true });
 }

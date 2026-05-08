@@ -1,20 +1,23 @@
 import { ChatInputCommandInteraction, PermissionFlagsBits, TextChannel } from 'discord.js';
 import db from '../db/database';
+import { t } from '../i18n';
 
 export async function setupCommand(interaction: ChatInputCommandInteraction): Promise<void> {
     if (!interaction.memberPermissions?.has(PermissionFlagsBits.ManageGuild)) {
         await interaction.reply({
-            content: 'You need the "Manage Server" permission to use this command.',
+            content: t('en').setup.noPermission,
             ephemeral: true,
         });
         return;
     }
 
     const channel = interaction.options.getChannel('channel', true);
+    const daily = interaction.options.getString('daily', true);
+    const language = interaction.options.getString('language', true);
     const platform = interaction.options.getString('platform');
     const genre = interaction.options.getString('genre');
-    const language = interaction.options.getString('language');
-    const daily = interaction.options.getString('daily');
+
+    const lang = t(language);
 
     db.prepare(`
         INSERT INTO servers (server_id, channel_id, platforms, genres, daily_enabled, language)
@@ -35,16 +38,14 @@ export async function setupCommand(interaction: ChatInputCommandInteraction): Pr
     );
 
     if (daily === 'enable') {
-    const welcomeChannel = await interaction.client.channels.fetch(channel.id);
-    if (welcomeChannel instanceof TextChannel) {
-        await welcomeChannel.send(
-        '🔔 Daily notifications enabled! Free games will be posted here every day at **9:00 UTC**.',
-        );
-    }
+        const welcomeChannel = await interaction.client.channels.fetch(channel.id);
+        if (welcomeChannel instanceof TextChannel) {
+            await welcomeChannel.send(lang.daily.enabled);
+        }
     }
 
     await interaction.reply({
-        content: `✅ Configuration saved! Daily notifications → <#${channel.id}>`,
+        content: `${lang.setup.success} <#${channel.id}>`,
         ephemeral: true,
     });
 }

@@ -143,4 +143,4 @@ vite.config.ts.timestamp-*
 .vite/
 
 # db
-data.bd
+data.db
